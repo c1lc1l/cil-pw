@@ -132,7 +132,7 @@
 
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--coffee-light)) 100%);
+    background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--coffee-light)) 50%, hsl(var(--coffee-glow)) 100%);
   }
 
   .border-glow {
@@ -157,6 +157,17 @@
     @apply absolute rounded-full opacity-20;
     background: linear-gradient(180deg, hsl(var(--coffee-light)) 0%, transparent 100%);
     animation: float 8s ease-in-out infinite;
+  }
+
+  /* Expressive typography utility */
+  .text-expressive {
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  /* Section spacing for rhythmic flow */
+  .section-rhythm {
+    @apply py-24 md:py-32 lg:py-40;
   }
 
   @keyframes float {
@@ -198,6 +209,31 @@
 
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--coffee-light) / 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
