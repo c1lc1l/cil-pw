@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Twitter, Coffee, Cloud } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Coffee, Heart } from "lucide-react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/c1lc1l", label: "GitHub" },
@@ -9,68 +9,75 @@ const socialLinks = [
 ];
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="py-12 px-4 border-t border-border bg-gradient-to-b from-background to-navy-dark/50">
+    <footer className="py-16 px-4 relative overflow-hidden">
+      {/* Top border gradient */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo & tagline */}
+        <div className="flex flex-col items-center gap-8">
+          {/* Logo/Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-3"
+            className="text-center"
           >
-            <div className="p-2 rounded-xl bg-coffee/20 border border-coffee/30">
-              <Cloud className="w-6 h-6 text-coffee-light" />
-            </div>
-            <div>
-              <span className="font-mono font-bold text-lg text-foreground">cilcasio.com</span>
-              <p className="text-xs text-muted-foreground">Powered by AWS & Coffee ☕</p>
-            </div>
+            <h3 className="text-2xl font-mono font-bold text-foreground mb-2">
+              Cil Casio
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Serverless Sorcerer • AWS Cloud Captain
+            </p>
           </motion.div>
 
-          {/* Social links */}
+          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center gap-4"
           >
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <motion.a
+                key={label}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg border border-border bg-secondary/50 text-muted-foreground hover:text-coffee-light hover:border-coffee-light hover:shadow-[0_0_15px_hsl(25_50%_40%/0.3)] transition-all duration-300"
-                aria-label={social.label}
+                className="p-3 rounded-full bg-secondary/50 border border-border text-muted-foreground hover:text-coffee-light hover:border-coffee/30 hover:bg-coffee/10 transition-all"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={label}
               >
-                <social.icon className="w-5 h-5" />
-              </a>
+                <Icon className="w-5 h-5" />
+              </motion.a>
             ))}
           </motion.div>
-        </div>
 
-        {/* Bottom section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground"
-        >
-          <p className="font-mono">
-            © {currentYear} Gen "Cil" Benedict Casio. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2">
-            <Coffee className="w-4 h-4 text-coffee-light" />
-            <span className="font-mono">Made with caffeine in Cavite, Philippines</span>
-          </div>
-        </motion.div>
+          {/* Divider */}
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-coffee-light/30 to-transparent" />
+
+          {/* Copyright */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+              Built with <Heart className="w-4 h-4 text-coffee-light fill-coffee-light" /> 
+              and <Coffee className="w-4 h-4 text-coffee-light" />
+            </p>
+            <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
+              © {new Date().getFullYear()} Gen "Cil" Benedict Casio. All rights reserved.
+            </p>
+            <p className="text-xs text-muted-foreground/40 mt-1 font-mono">
+              Deployed on AWS CloudFront + S3 • Route53: cilcasio.com
+            </p>
+          </motion.div>
+        </div>
       </div>
     </footer>
   );
