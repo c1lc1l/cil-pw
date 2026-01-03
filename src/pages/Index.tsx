@@ -8,6 +8,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
 import AmbientModeToggle from "@/components/AmbientModeToggle";
+import CloudBootOverlay from "@/components/CloudBootOverlay";
 
 type AmbientMode = "focused" | "creative" | "night";
 
@@ -16,6 +17,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background relative">
+      {/* Boot overlay - plays once on load */}
+      <CloudBootOverlay />
+      
       {/* Ambient background layer */}
       <AmbientBackground mode={ambientMode} />
       
