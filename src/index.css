@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,18 +6,22 @@
 
 @layer base {
   :root {
-    /* Navy palette */
-    --navy-deep: 210 100% 6%;
-    --navy-dark: 210 80% 10%;
-    --navy-mid: 210 60% 18%;
+    /* Navy palette - deep, not cold */
+    --navy-deep: 215 50% 8%;
+    --navy-dark: 215 45% 12%;
+    --navy-mid: 215 35% 20%;
     
-    /* Coffee palette */
-    --coffee-brown: 25 32% 33%;
-    --coffee-light: 25 38% 48%;
-    --coffee-glow: 25 42% 55%;
+    /* Coffee palette - rich, warm, inviting */
+    --coffee-espresso: 25 40% 18%;
+    --coffee-brown: 25 35% 33%;
+    --coffee-warm: 28 42% 45%;
+    --coffee-light: 30 45% 55%;
+    --coffee-crema: 35 50% 70%;
+    --coffee-glow: 30 55% 60%;
     
-    /* Cream palette */
-    --cream: 40 20% 92%;
+    /* Cream palette - warm whites */
+    --cream: 38 30% 90%;
+    --cream-soft: 35 20% 82%;
     
     /* Semantic tokens */
     --background: var(--navy-deep);
@@ -26,19 +30,19 @@
     --card-foreground: var(--cream);
     --popover: var(--navy-dark);
     --popover-foreground: var(--cream);
-    --primary: var(--coffee-light);
+    --primary: var(--coffee-warm);
     --primary-foreground: 40 20% 98%;
-    --secondary: 210 50% 12%;
+    --secondary: 215 40% 14%;
     --secondary-foreground: var(--cream);
-    --muted: 210 30% 15%;
-    --muted-foreground: 210 15% 55%;
+    --muted: 215 25% 18%;
+    --muted-foreground: 30 12% 60%;
     --accent: var(--coffee-brown);
     --accent-foreground: var(--cream);
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 210 30% 20%;
-    --input: 210 30% 20%;
-    --ring: var(--coffee-light);
+    --border: 215 25% 22%;
+    --input: 215 25% 22%;
+    --ring: var(--coffee-warm);
     --radius: 0.5rem;
   }
 }
@@ -55,21 +59,133 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Space Grotesk', system-ui, sans-serif;
-    line-height: 1.7;
+    line-height: 1.75;
     letter-spacing: 0.01em;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
 
+  .font-serif {
+    font-family: 'Lora', Georgia, serif;
+  }
+
   ::selection {
-    background: hsl(var(--coffee-brown) / 0.4);
+    background: hsl(var(--coffee-warm) / 0.45);
     color: hsl(var(--cream));
+  }
+}
+
+/* Warm highlights - coffee stain style */
+@layer components {
+  .highlight-warm {
+    position: relative;
+    display: inline;
+  }
+  
+  .highlight-warm::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: 0;
+    height: 40%;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--coffee-warm) / 0.25) 0%,
+      hsl(var(--coffee-warm) / 0.35) 50%,
+      hsl(var(--coffee-warm) / 0.2) 100%
+    );
+    border-radius: 2px 8px 4px 6px;
+    transform: rotate(-0.5deg);
+    z-index: -1;
+  }
+  
+  /* Ink underline style */
+  .underline-ink {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--coffee-light) / 0.6),
+      hsl(var(--coffee-crema) / 0.4)
+    );
+    background-size: 100% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+  }
+  
+  /* Coffee separator */
+  .separator-coffee {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--coffee-brown) / 0.4) 20%,
+      hsl(var(--coffee-warm) / 0.5) 50%,
+      hsl(var(--coffee-brown) / 0.3) 80%,
+      transparent 100%
+    );
+  }
+  
+  /* Metric badge */
+  .metric-warm {
+    @apply font-mono text-sm;
+    color: hsl(var(--coffee-light));
+    background: hsl(var(--coffee-espresso) / 0.5);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid hsl(var(--coffee-brown) / 0.3);
+  }
+}
+
+/* Subtle paper texture overlay */
+@layer utilities {
+  .texture-grain {
+    position: relative;
+  }
+  
+  .texture-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  /* Steam animation - very slow and ambient */
+  @keyframes steam {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(0) scaleY(1);
+    }
+    50% {
+      opacity: 0.15;
+      transform: translateY(-8px) scaleY(1.1);
+    }
+  }
+  
+  .animate-steam {
+    animation: steam 8s ease-in-out infinite;
+  }
+  
+  /* Gentle pulse for warm elements */
+  @keyframes warmth {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  
+  .animate-warmth {
+    animation: warmth 6s ease-in-out infinite;
   }
 }
 
@@ -86,9 +202,9 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - warm */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -96,16 +212,17 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--navy-mid));
-  border-radius: 3px;
+  background: hsl(var(--coffee-brown) / 0.6);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--coffee-brown));
+  background: hsl(var(--coffee-warm));
 }
 
-/* Focus states */
+/* Focus states - warm */
 :focus-visible {
   outline: 2px solid hsl(var(--coffee-light));
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 2px;
 }

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Coffee } from "lucide-react";
 
 const bootLines = [
   "booting cilcasio.cloud",
-  "provisioning serverless stack",
+  "brewing serverless stack",
 ];
 
 const CloudBootOverlay = () => {
@@ -28,7 +29,7 @@ const CloudBootOverlay = () => {
     }
 
     if (currentLine >= bootLines.length) {
-      const timer = setTimeout(() => setIsVisible(false), 400);
+      const timer = setTimeout(() => setIsVisible(false), 500);
       return () => clearTimeout(timer);
     }
 
@@ -40,14 +41,14 @@ const CloudBootOverlay = () => {
       const timer = setTimeout(() => {
         setCurrentLine((prev) => prev + 1);
         setDisplayedText((prev) => prev + "\n");
-      }, 250);
+      }, 300);
       return () => clearTimeout(timer);
     }
 
     const nextChar = line[currentLineText.length];
     const timer = setTimeout(() => {
       setDisplayedText((prev) => prev + nextChar);
-    }, 40);
+    }, 45);
 
     return () => clearTimeout(timer);
   }, [currentLine, displayedText, prefersReducedMotion]);
@@ -58,42 +59,49 @@ const CloudBootOverlay = () => {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.98 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
         >
-          {/* Subtle glow */}
+          {/* Warm glow - like coffee steam */}
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ 
-              scale: prefersReducedMotion ? 1 : [1, 1.1, 1],
-              opacity: prefersReducedMotion ? 0.3 : [0.2, 0.35, 0.2]
+              scale: prefersReducedMotion ? 1 : [1, 1.15, 1],
+              opacity: prefersReducedMotion ? 0.25 : [0.2, 0.35, 0.2]
             }}
             transition={{
-              duration: 2.5,
+              duration: 3,
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute w-64 h-64 rounded-full bg-coffee/20 blur-3xl"
+            className="absolute w-72 h-72 rounded-full blur-3xl"
+            style={{ background: 'radial-gradient(circle, hsl(30 45% 35% / 0.4) 0%, transparent 70%)' }}
           />
 
-          {/* Terminal */}
+          {/* Terminal with coffee warmth */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="relative z-10 rounded-lg border border-border/50 bg-card/80 backdrop-blur-sm px-6 py-5"
+            transition={{ duration: 0.4 }}
+            className="relative z-10 rounded-xl border border-coffee-brown/40 bg-navy-dark/90 backdrop-blur-sm px-7 py-5"
+            style={{
+              boxShadow: "0 0 60px rgba(139, 90, 43, 0.12), 0 0 100px rgba(139, 90, 43, 0.06)"
+            }}
           >
-            {/* Dots */}
-            <div className="flex gap-1.5 mb-3">
-              <div className="w-2 h-2 rounded-full bg-coffee/30" />
-              <div className="w-2 h-2 rounded-full bg-coffee/20" />
-              <div className="w-2 h-2 rounded-full bg-coffee/10" />
+            {/* Terminal header with coffee icon */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-coffee-warm/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-coffee-brown/30" />
+                <div className="w-2.5 h-2.5 rounded-full bg-coffee-espresso/40" />
+              </div>
+              <Coffee className="w-3.5 h-3.5 text-coffee-warm/50 ml-2" />
             </div>
 
             {/* Content */}
-            <div className="font-mono text-sm text-foreground/80 min-h-[3rem] min-w-[220px]">
+            <div className="font-mono text-sm text-cream/85 min-h-[3.5rem] min-w-[240px]">
               {prefersReducedMotion ? (
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   {bootLines.map((line, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <span className="text-coffee-light">›</span>
@@ -104,7 +112,7 @@ const CloudBootOverlay = () => {
               ) : (
                 <div>
                   {displayedText.split("\n").map((line, i) => (
-                    <div key={i} className="flex items-center gap-2 min-h-[1.4rem]">
+                    <div key={i} className="flex items-center gap-2 min-h-[1.5rem]">
                       {line && (
                         <>
                           <span className="text-coffee-light">›</span>
@@ -116,8 +124,8 @@ const CloudBootOverlay = () => {
                   {currentLine < bootLines.length && (
                     <motion.span
                       animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity }}
-                      className="inline-block w-1.5 h-4 bg-coffee-light/70 ml-0.5"
+                      transition={{ duration: 0.6, repeat: Infinity }}
+                      className="inline-block w-2 h-4 bg-coffee-light/70 ml-0.5"
                     />
                   )}
                 </div>

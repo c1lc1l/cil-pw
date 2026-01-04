@@ -21,6 +21,7 @@ export default {
       fontFamily: {
         sans: ["Space Grotesk", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
+        serif: ["Lora", "Georgia", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,11 +63,18 @@ export default {
           mid: "hsl(var(--navy-mid))",
         },
         coffee: {
+          espresso: "hsl(var(--coffee-espresso))",
           DEFAULT: "hsl(var(--coffee-brown))",
+          brown: "hsl(var(--coffee-brown))",
+          warm: "hsl(var(--coffee-warm))",
           light: "hsl(var(--coffee-light))",
+          crema: "hsl(var(--coffee-crema))",
           glow: "hsl(var(--coffee-glow))",
         },
-        cream: "hsl(var(--cream))",
+        cream: {
+          DEFAULT: "hsl(var(--cream))",
+          soft: "hsl(var(--cream-soft))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
