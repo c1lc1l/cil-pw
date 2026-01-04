@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Send, Loader2, Check } from "lucide-react";
+import { Send, Loader2, Check, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,32 +22,43 @@ const ContactClose = () => {
     setIsSubmitted(true);
     toast({
       title: "Message sent",
-      description: "I'll get back to you soon.",
+      description: "I'll get back to you soon—probably after my next coffee.",
     });
     
     setTimeout(() => setIsSubmitted(false), 4000);
   };
 
   return (
-    <section className="py-24 md:py-32 px-6">
-      <div className="max-w-xl mx-auto">
-        {/* Closing statement - personal, quiet */}
+    <section className="py-28 md:py-36 px-6 relative">
+      {/* Warm closing gradient - like café closing time */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-coffee-espresso/[0.05] to-coffee-espresso/[0.08] pointer-events-none" />
+      
+      <div className="max-w-xl mx-auto relative z-10">
+        {/* Closing statement - café warmth */}
         <motion.div
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-14"
         >
-          <p className="text-xl text-foreground mb-4">
+          <div className="flex items-center gap-3 mb-6">
+            <Coffee className="w-5 h-5 text-coffee-warm/70" />
+            <div className="flex-1 separator-coffee" />
+          </div>
+          
+          <h2 className="text-2xl md:text-3xl font-serif text-foreground mb-4">
             If this work resonates, let's talk.
-          </p>
-          <p className="text-muted-foreground">
-            I'm open to consulting, speaking, or collaborating on cloud and serverless projects.
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            I'm open to consulting, speaking, or collaborating on cloud and serverless projects.{" "}
+            <span className="text-muted-foreground/50 font-serif italic">
+              The café's still open.
+            </span>
           </p>
         </motion.div>
 
-        {/* Form - minimal, focused */}
+        {/* Form - warm, focused */}
         <motion.form
           onSubmit={handleSubmit}
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 16 }}
@@ -64,7 +75,7 @@ const ContactClose = () => {
                 type="text"
                 placeholder="Name"
                 required
-                className="bg-secondary/30 border-border focus:border-coffee-light/50 h-12"
+                className="bg-coffee-espresso/30 border-coffee-brown/30 focus:border-coffee-warm/60 focus:ring-coffee-warm/20 h-12 placeholder:text-muted-foreground/40"
               />
             </div>
             <div>
@@ -74,7 +85,7 @@ const ContactClose = () => {
                 type="email"
                 placeholder="Email"
                 required
-                className="bg-secondary/30 border-border focus:border-coffee-light/50 h-12"
+                className="bg-coffee-espresso/30 border-coffee-brown/30 focus:border-coffee-warm/60 focus:ring-coffee-warm/20 h-12 placeholder:text-muted-foreground/40"
               />
             </div>
           </div>
@@ -84,16 +95,16 @@ const ContactClose = () => {
             <Textarea
               id="message"
               placeholder="What would you like to discuss?"
-              rows={4}
+              rows={5}
               required
-              className="bg-secondary/30 border-border focus:border-coffee-light/50 resize-none"
+              className="bg-coffee-espresso/30 border-coffee-brown/30 focus:border-coffee-warm/60 focus:ring-coffee-warm/20 resize-none placeholder:text-muted-foreground/40"
             />
           </div>
 
           <Button
             type="submit"
             disabled={isSubmitting || isSubmitted}
-            className="h-12 px-8 bg-coffee hover:bg-coffee-light text-primary-foreground transition-colors"
+            className="h-12 px-8 bg-coffee-brown hover:bg-coffee-warm text-cream transition-all duration-300"
           >
             {isSubmitting ? (
               <>
