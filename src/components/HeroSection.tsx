@@ -156,10 +156,10 @@ const HeroSection = () => {
   const [deployed, setDeployed] = useState(false);
 
   const typewriterTexts = [
-    "INITIALISING AWS CLOUDS...",
-    "CONFIGURING LAMBDA FUNCTIONS...",
-    "DEPLOYING TO PRODUCTION...",
-    "BREWING SERVERLESS MAGIC...",
+    "INITIALISING AWS CLOUDS... ☁️",
+    "CONFIGURING LAMBDA FUNCTIONS... ⚙️",
+    "PROOFREADING EDITORIAL ARTICLES... 📝",
+    "BREWING SPANISH LATTE... ☕",
   ];
 
   return (
@@ -204,7 +204,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="block text-foreground"
             >
-              Cil Casio
+              Hi I'm Gen!
             </motion.span>
           </h1>
           
@@ -215,7 +215,7 @@ const HeroSection = () => {
             className="text-2xl md:text-3xl font-semibold mb-4"
           >
             <span className="bg-gradient-to-r from-cream via-coffee-light to-coffee bg-clip-text text-transparent">
-              Serverless Sorcerer ⚡
+              Architecting Organized Chaos Through Python and Writing
             </span>
           </motion.p>
           
@@ -225,7 +225,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
-            AWS Cloud Club Captain & AI/ML Developer
+            AWS Cloud Club Captain "Ben" | Associate Editor-in-Chief "Cil"
             <br />
             <span className="text-coffee-light/80">at Philippine Christian University</span>
           </motion.p>
@@ -254,7 +254,7 @@ const HeroSection = () => {
               : "border-border bg-secondary/30 hover:bg-secondary/50"
           }`}>
             <Zap className={`w-5 h-5 transition-colors ${deployed ? "text-coffee-light" : "text-muted-foreground"}`} />
-            <span className="font-mono text-sm uppercase tracking-wider">Deploy to Production</span>
+            <span className="font-mono text-sm uppercase tracking-wider">I Need More Clouds!</span>
             <Switch
               checked={deployed}
               onCheckedChange={setDeployed}
@@ -269,7 +269,7 @@ const HeroSection = () => {
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 className="text-sm text-coffee-light font-mono"
               >
-                🚀 Successfully deployed to AWS CloudFront!
+                ⛅ Nimbus, Cirrus, Cumulus, Stratus... Your serverless clouds are deployed! ⛅
               </motion.p>
             )}
           </AnimatePresence>

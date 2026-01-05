@@ -7,7 +7,6 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
-import AmbientModeToggle from "@/components/AmbientModeToggle";
 import CloudBootOverlay from "@/components/CloudBootOverlay";
 
 type AmbientMode = "focused" | "creative" | "night";
@@ -22,9 +21,6 @@ const Index = () => {
       
       {/* Ambient background layer */}
       <AmbientBackground mode={ambientMode} />
-      
-      {/* Ambient mode toggle */}
-      <AmbientModeToggle mode={ambientMode} onModeChange={setAmbientMode} />
       
       {/* Main content */}
       <main className="relative z-10">
