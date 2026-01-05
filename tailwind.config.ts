@@ -61,6 +61,8 @@ export default {
           deep: "hsl(var(--navy-deep))",
           dark: "hsl(var(--navy-dark))",
           mid: "hsl(var(--navy-mid))",
+          accent: "hsl(var(--navy-accent))",
+          glow: "hsl(var(--navy-glow))",
         },
         coffee: {
           espresso: "hsl(var(--coffee-espresso))",
@@ -74,6 +76,14 @@ export default {
         cream: {
           DEFAULT: "hsl(var(--cream))",
           soft: "hsl(var(--cream-soft))",
+        },
+        captain: {
+          DEFAULT: "hsl(var(--captain-primary))",
+          glow: "hsl(var(--captain-glow))",
+        },
+        editor: {
+          DEFAULT: "hsl(var(--editor-primary))",
+          glow: "hsl(var(--editor-glow))",
         },
       },
       borderRadius: {

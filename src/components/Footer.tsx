@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Mail, Coffee, Heart } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Coffee, Heart, Cloud, Pen } from "lucide-react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/c1lc1l", label: "GitHub" },
@@ -16,7 +16,7 @@ const Footer = () => {
       
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center gap-8">
-          {/* Logo/Brand */}
+          {/* Logo/Brand with dual identity */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -24,10 +24,21 @@ const Footer = () => {
             className="text-center"
           >
             <h3 className="text-2xl font-mono font-bold text-foreground mb-2">
-              Cil Casio
+              Gen "Cil" Benedict Casio
             </h3>
-            <p className="text-sm text-muted-foreground">
-              Serverless Sorcerer • AWS Cloud Captain
+            <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <Cloud className="w-4 h-4 text-navy-glow" />
+                <span>Cloud Captain "Ben"</span>
+              </span>
+              <span className="text-border">|</span>
+              <span className="flex items-center gap-1.5">
+                <Pen className="w-4 h-4 text-coffee-light" />
+                <span>Editor-in-Chief "Cil"</span>
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground/70 mt-2">
+              Building clouds ☁️ and crafting words ✍️ at Philippine Christian University
             </p>
           </motion.div>
 
@@ -56,7 +67,7 @@ const Footer = () => {
           </motion.div>
 
           {/* Divider */}
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-coffee-light/30 to-transparent" />
+          <div className="w-24 h-px bg-gradient-to-r from-navy-glow/30 via-coffee-light/30 to-navy-glow/30" />
 
           {/* Copyright */}
           <motion.div
@@ -72,9 +83,6 @@ const Footer = () => {
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
               © {new Date().getFullYear()} Gen "Cil" Benedict Casio. All rights reserved.
-            </p>
-            <p className="text-xs text-muted-foreground/40 mt-1 font-mono">
-              Deployed on AWS CloudFront + S3 • Route53: cilcasio.com
             </p>
           </motion.div>
         </div>

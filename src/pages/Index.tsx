@@ -1,34 +1,29 @@
-import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import MissionStatement from "@/components/MissionStatement";
+import IntersectionSection from "@/components/IntersectionSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import PortfolioSection from "@/components/PortfolioSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
 import CloudBootOverlay from "@/components/CloudBootOverlay";
 
-type AmbientMode = "focused" | "creative" | "night";
-
 const Index = () => {
-  const [ambientMode, setAmbientMode] = useState<AmbientMode>("focused");
-
   return (
     <div className="min-h-screen bg-background relative">
       {/* Boot overlay - plays once on load */}
       <CloudBootOverlay />
       
       {/* Ambient background layer */}
-      <AmbientBackground mode={ambientMode} />
+      <AmbientBackground mode="focused" />
       
       {/* Main content */}
       <main className="relative z-10">
         <HeroSection />
         <MissionStatement />
+        <IntersectionSection />
         <BenefitsSection />
         <PortfolioSection />
-        <TestimonialsSection />
         <ContactSection />
         <Footer />
       </main>

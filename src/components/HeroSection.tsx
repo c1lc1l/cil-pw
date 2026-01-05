@@ -1,8 +1,42 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Cloud, Zap } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Cloud, Pen, Zap, Server, FileText } from "lucide-react";
 import CertificationCarousel from "@/components/CertificationCarousel";
+
+type RoleMode = "captain" | "editor";
+
+const roleConfig = {
+  captain: {
+    title: "Ben",
+    subtitle: "The Cloud Captain",
+    color: "captain",
+    icon: Cloud,
+    typewriterTexts: [
+      "INITIALISING AWS CLOUDS... ☁️",
+      "CONFIGURING LAMBDA FUNCTIONS... ⚙️",
+      "DEPLOYING SERVERLESS STACK... 🚀",
+      "BREWING SPANISH LATTE... ☕",
+    ],
+    gradient: "from-navy-accent to-captain-glow",
+    glowColor: "navy-glow",
+    description: "AWS Cloud Club Captain at PCU",
+  },
+  editor: {
+    title: "Cil",
+    subtitle: "The Editor-in-Chief",
+    color: "editor",
+    icon: Pen,
+    typewriterTexts: [
+      "PROOFREADING EDITORIAL ARTICLES... 📝",
+      "REFINING TECHNICAL DOCS... ✍️",
+      "ORGANIZING CONTENT PIPELINE... 📚",
+      "BREWING SPANISH LATTE... ☕",
+    ],
+    gradient: "from-coffee-warm to-editor-glow",
+    glowColor: "coffee-glow",
+    description: "Associate Editor-in-Chief at PCU",
+  },
+};
 
 const TypewriterText = ({ texts, className }: { texts: string[]; className?: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,147 +84,105 @@ const TypewriterText = ({ texts, className }: { texts: string[]; className?: str
   return (
     <span className={className}>
       {displayText}
-      <span className={`inline-block w-0.5 h-[1em] ml-1 bg-coffee-light ${showCursor ? "opacity-100" : "opacity-0"}`} />
+      <span className={`inline-block w-0.5 h-[1em] ml-1 bg-current ${showCursor ? "opacity-100" : "opacity-0"}`} />
     </span>
   );
 };
 
-interface CloudParticle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  delay: number;
-  duration: number;
-}
-
-const FloatingClouds = ({ active }: { active: boolean }) => {
-  const [particles, setParticles] = useState<CloudParticle[]>([]);
-  const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (active && !prefersReducedMotion) {
-      const newParticles: CloudParticle[] = Array.from({ length: 15 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: 50 + Math.random() * 50,
-        size: 20 + Math.random() * 50,
-        delay: Math.random() * 2,
-        duration: 4 + Math.random() * 4,
-      }));
-      setParticles(newParticles);
-    } else {
-      setParticles([]);
-    }
-  }, [active, prefersReducedMotion]);
-
-  return (
-    <AnimatePresence>
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          initial={{ opacity: 0, x: `${particle.x}%`, y: `${particle.y}%`, scale: 0 }}
-          animate={{
-            opacity: [0, 0.7, 0],
-            y: [`${particle.y}%`, `${particle.y - 40}%`],
-            scale: [0, 1.2, 0.8],
-          }}
-          exit={{ opacity: 0, scale: 0 }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute pointer-events-none"
-          style={{ left: `${particle.x}%` }}
-        >
-          <Cloud className="text-coffee-light/60" style={{ width: particle.size, height: particle.size }} />
-        </motion.div>
-      ))}
-    </AnimatePresence>
-  );
-};
-
-// Animated wave background
-const WaveBackground = () => {
-  const prefersReducedMotion = useReducedMotion();
-  
-  if (prefersReducedMotion) return null;
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <svg
-        className="absolute bottom-0 w-full h-64 opacity-10"
-        viewBox="0 0 1440 320"
-        preserveAspectRatio="none"
-      >
-        <motion.path
-          d="M0,160L48,170.7C96,181,192,203,288,186.7C384,171,480,117,576,106.7C672,96,768,128,864,154.7C960,181,1056,203,1152,186.7C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          fill="url(#gradient)"
-          animate={{
-            d: [
-              "M0,160L48,170.7C96,181,192,203,288,186.7C384,171,480,117,576,106.7C672,96,768,128,864,154.7C960,181,1056,203,1152,186.7C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,154.7C672,128,768,96,864,117.3C960,139,1056,213,1152,229.3C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-              "M0,160L48,170.7C96,181,192,203,288,186.7C384,171,480,117,576,106.7C672,96,768,128,864,154.7C960,181,1056,203,1152,186.7C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-            ],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <defs>
-          <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(25 40% 40%)" />
-            <stop offset="100%" stopColor="hsl(210 80% 30%)" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
-  );
-};
-
 const HeroSection = () => {
-  const [deployed, setDeployed] = useState(false);
-
-  const typewriterTexts = [
-    "INITIALISING AWS CLOUDS... ☁️",
-    "CONFIGURING LAMBDA FUNCTIONS... ⚙️",
-    "PROOFREADING EDITORIAL ARTICLES... 📝",
-    "BREWING SPANISH LATTE... ☕",
-  ];
+  const [activeRole, setActiveRole] = useState<RoleMode>("captain");
+  const prefersReducedMotion = useReducedMotion();
+  const config = roleConfig[activeRole];
+  const Icon = config.icon;
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden gradient-hero px-4">
-      {/* Background particles */}
-      <FloatingClouds active={deployed} />
-      <WaveBackground />
-      
-      {/* Ambient glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-coffee-light/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-navy-mid/30 rounded-full blur-3xl" />
+      {/* Dynamic ambient glows based on role */}
+      <motion.div 
+        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none"
+        animate={{
+          backgroundColor: activeRole === "captain" 
+            ? "hsl(210 80% 45% / 0.15)" 
+            : "hsl(25 40% 50% / 0.15)",
+        }}
+        transition={{ duration: 0.8 }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none"
+        animate={{
+          backgroundColor: activeRole === "captain" 
+            ? "hsl(210 90% 50% / 0.1)" 
+            : "hsl(25 50% 55% / 0.1)",
+        }}
+        transition={{ duration: 0.8 }}
+      />
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Terminal-style typewriter */}
+        {/* Role Toggle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="mb-8"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm font-mono text-muted-foreground">system.status: online</span>
-          </div>
-          
-          <div className="font-mono text-lg md:text-xl text-coffee-light mb-6 h-8">
-            <TypewriterText texts={typewriterTexts} />
+          <div className="inline-flex items-center gap-1 p-1.5 rounded-full border border-border bg-secondary/50 backdrop-blur-sm">
+            <button
+              onClick={() => setActiveRole("captain")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                activeRole === "captain"
+                  ? "bg-navy-accent text-white shadow-lg"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Cloud className="w-4 h-4" />
+              <span className="text-sm font-mono">Ben</span>
+            </button>
+            <button
+              onClick={() => setActiveRole("editor")}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                activeRole === "editor"
+                  ? "bg-coffee-warm text-white shadow-lg"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Pen className="w-4 h-4" />
+              <span className="text-sm font-mono">Cil</span>
+            </button>
           </div>
         </motion.div>
 
-        {/* Main heading with expressive typography */}
+        {/* Terminal-style typewriter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-8"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-secondary/50 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-sm font-mono text-muted-foreground">
+              {activeRole === "captain" ? "cloud.status: active" : "editorial.status: active"}
+            </span>
+          </div>
+          
+          <div className="h-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeRole}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className={`font-mono text-lg md:text-xl ${
+                  activeRole === "captain" ? "text-navy-glow" : "text-coffee-light"
+                }`}
+              >
+                <TypewriterText texts={config.typewriterTexts} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
+
+        {/* Main heading with role-based styling */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -204,31 +196,32 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="block text-foreground"
             >
-              Hi I'm Gen!
+              Hi, I'm Gen!
             </motion.span>
           </h1>
           
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-2xl md:text-3xl font-semibold mb-4"
-          >
-            <span className="bg-gradient-to-r from-cream via-coffee-light to-coffee bg-clip-text text-transparent">
-              Architecting Organized Chaos Through Python and Writing
-            </span>
-          </motion.p>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
-          >
-            AWS Cloud Club Captain "Ben" | Associate Editor-in-Chief "Cil"
-            <br />
-            <span className="text-coffee-light/80">at Philippine Christian University</span>
-          </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeRole}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-2xl md:text-3xl font-semibold mb-4">
+                <span className={`bg-gradient-to-r ${config.gradient} bg-clip-text text-transparent`}>
+                  {config.subtitle}
+                </span>
+              </p>
+              <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                {config.description}
+                <br />
+                <span className={activeRole === "captain" ? "text-navy-glow/80" : "text-coffee-light/80"}>
+                  at Philippine Christian University
+                </span>
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         {/* Certification carousel */}
@@ -241,38 +234,35 @@ const HeroSection = () => {
           <CertificationCarousel />
         </motion.div>
 
-        {/* Deploy toggle */}
+        {/* Role indicator cards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}
-          className="flex flex-col items-center gap-4"
+          className="flex flex-wrap justify-center gap-4"
         >
-          <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl border transition-all duration-500 ${
-            deployed 
-              ? "border-coffee-light bg-coffee/20 shadow-[0_0_60px_hsl(25_50%_40%/0.5)]" 
-              : "border-border bg-secondary/30 hover:bg-secondary/50"
-          }`}>
-            <Zap className={`w-5 h-5 transition-colors ${deployed ? "text-coffee-light" : "text-muted-foreground"}`} />
-            <span className="font-mono text-sm uppercase tracking-wider">I Need More Clouds!</span>
-            <Switch
-              checked={deployed}
-              onCheckedChange={setDeployed}
-              className="data-[state=checked]:bg-coffee-light"
-            />
-          </div>
-          <AnimatePresence>
-            {deployed && (
-              <motion.p
-                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className="text-sm text-coffee-light font-mono"
-              >
-                ⛅ Nimbus, Cirrus, Cumulus, Stratus... Your serverless clouds are deployed! ⛅
-              </motion.p>
-            )}
-          </AnimatePresence>
+          <motion.div
+            className={`flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-300 ${
+              activeRole === "captain"
+                ? "border-navy-accent bg-navy-accent/20 shadow-[0_0_30px_hsl(210_80%_45%/0.3)]"
+                : "border-border bg-secondary/30 hover:bg-secondary/50"
+            }`}
+            whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+          >
+            <Server className={`w-5 h-5 ${activeRole === "captain" ? "text-navy-glow" : "text-muted-foreground"}`} />
+            <span className="font-mono text-sm">Cloud Engineering</span>
+          </motion.div>
+          <motion.div
+            className={`flex items-center gap-3 px-5 py-3 rounded-xl border transition-all duration-300 ${
+              activeRole === "editor"
+                ? "border-coffee-warm bg-coffee-warm/20 shadow-[0_0_30px_hsl(25_40%_50%/0.3)]"
+                : "border-border bg-secondary/30 hover:bg-secondary/50"
+            }`}
+            whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+          >
+            <FileText className={`w-5 h-5 ${activeRole === "editor" ? "text-coffee-light" : "text-muted-foreground"}`} />
+            <span className="font-mono text-sm">Editorial Leadership</span>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -288,7 +278,7 @@ const HeroSection = () => {
           transition={{ duration: 1.5, repeat: Infinity }}
           className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2"
         >
-          <div className="w-1 h-2 rounded-full bg-coffee-light" />
+          <div className={`w-1 h-2 rounded-full ${activeRole === "captain" ? "bg-navy-glow" : "bg-coffee-light"}`} />
         </motion.div>
       </motion.div>
     </section>
