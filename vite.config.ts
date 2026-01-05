@@ -5,6 +5,11 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
   base: "/",
+    build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,  // Prod
+  },
   server: { host: "::", port: 8080 },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
