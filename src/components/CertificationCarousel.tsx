@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, Cloud, Brain, GraduationCap, Database, type LucideIcon } from "lucide-react";
+import { Cloud, Brain, GraduationCap, Database, type LucideIcon } from "lucide-react";
 
 interface Certification {
   icon: LucideIcon;
