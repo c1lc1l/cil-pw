@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Coffee } from "lucide-react";
 
 const bootLines = [
-  "booting cilcasio.cloud",
-  "brewing serverless stack",
+  "$ brew coffee.tsx",
+  "$ pip install caffeine",
+  "$ init captain-editor",
+  "$ provisioning gen.exe",
 ];
 
 const CloudBootOverlay = () => {

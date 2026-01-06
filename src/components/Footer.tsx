@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Mail, Coffee, Heart, Cloud, Pen } from "lucide-react";
+import { Github, Linkedin, Instagram, Facebook, Coffee, Heart, Cloud, Pen } from "lucide-react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/c1lc1l", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/cilcasio", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com/cilcasio", label: "Twitter" },
-  { icon: Mail, href: "mailto:cil@cilcasio.com", label: "Email" },
+  { icon: Linkedin, href: "https://linkedin.com/in/benedict-casio", label: "LinkedIn" },
+  { icon: Instagram, href: "https://www.instagram.com/cil.une/", label: "Twitter" },
+  { icon: Facebook, href: "https://www.facebook.com/CilCil01com", label: "Email" },
 ];
 
 const Footer = () => {
@@ -29,17 +29,14 @@ const Footer = () => {
             <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Cloud className="w-4 h-4 text-navy-glow" />
-                <span>Cloud Captain "Ben"</span>
+                <span>AWS Cloud Club Captain "Ben"</span>
               </span>
               <span className="text-border">|</span>
               <span className="flex items-center gap-1.5">
                 <Pen className="w-4 h-4 text-coffee-light" />
-                <span>Editor-in-Chief "Cil"</span>
+                <span>Associate Editor-in-Chief "Cil"</span>
               </span>
             </div>
-            <p className="text-xs text-muted-foreground/70 mt-2">
-              Building clouds ☁️ and crafting words ✍️ at Philippine Christian University
-            </p>
           </motion.div>
 
           {/* Social Links */}
@@ -78,8 +75,7 @@ const Footer = () => {
             className="text-center"
           >
             <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-              Built with <Heart className="w-4 h-4 text-coffee-light fill-coffee-light" /> 
-              and <Coffee className="w-4 h-4 text-coffee-light" />
+              Built with <Coffee className="w-4 h-4 text-coffee-light" /> and moreeeee <Coffee className="w-4 h-4 text-coffee-light" />
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
               © {new Date().getFullYear()} Gen "Cil" Benedict Casio. All rights reserved.
