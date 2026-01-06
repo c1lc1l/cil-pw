@@ -115,8 +115,8 @@ const FanImageCards = ({ images, role }: { images: string[]; role: RoleMode }) =
     xl: [
       { rotate: -16, x: -720, y: -110, z: 0 },
       { rotate: -8,  x: -540, y: -250, z: 1 },
-      { rotate: 8,   x: 340,  y: -250, z: 1 },
-      { rotate: 16,  x: 520,  y: -110, z: 0 },
+      { rotate: 8,   x: 280,  y: -250, z: 1 },
+      { rotate: 16,  x: 460,  y: -110, z: 0 },
     ],
   };
 

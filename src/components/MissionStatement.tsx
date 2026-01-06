@@ -118,7 +118,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
           <div className="relative">
             {/* Arrow */}
             <div 
-              className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 border-l-2 border-t-2"
+              className="absolute -top-2 right-3/4 -translate-x-1/2 w-4 h-4 rotate-45 border-l-2 border-t-2"
               style={{ 
                 borderColor: `${cert.color}60`,
                 backgroundColor: 'hsl(222 47% 11%)'
@@ -394,7 +394,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       name: "AWS Certified Cloud Practitioner",
       issuer: "Amazon Web Services",
       logo: "/logos/ccp.png",
-      color: "#FF9900",
+      color: "#9333ea",
       description: "Foundational understanding of AWS Cloud concepts, services, and terminology.",
       date: "Jan 2025"
     },
@@ -403,8 +403,8 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       name: "Cloud Club Captain Badge",
       issuer: "Amazon Web Services",
       logo: "/logos/cloudclubcaptain.png",
-      color: "#FF9900",
-      description: "Leadership recognition for establishing and growing the AWS Cloud Club community.",
+      color: "#9333ea",
+      description: "Cloud Captains are selected as an elite cohort of student leaders on campus.",
       date: "March 2025"
     },
     {
@@ -413,7 +413,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       issuer: "Oracle",
       logo: "/logos/ociai.png",
       color: "#F80000",
-      description: "Core knowledge of Oracle Cloud Infrastructure AI services and machine learning fundamentals.",
+      description: "Core knowledge of Oracle Cloud Infrastructure AI/ML services & concepts.",
       date: "July 2025"
     },
     {
@@ -422,7 +422,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       issuer: "DataCamp",
       logo: "/logos/aifundamentals.png",
       color: "#03EF62",
-      description: "Comprehensive understanding of artificial intelligence concepts, applications, and ethics.",
+      description: "Comprehensive understanding of AI fundamentals, applications, and ethics.",
       date: "Nov 2024"
     },
     {
@@ -431,7 +431,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       issuer: "DataCamp",
       logo: "/logos/dataliteracy.png",
       color: "#03EF62",
-      description: "Skills in interpreting, analyzing, and communicating insights from data effectively.",
+      description: "Data interpretation, analysis, visualization & communication.",
       date: "Nov 2024"
     }
   ];
@@ -743,6 +743,10 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
           </div>
         </motion.div>
         
+        <div className="my-24 flex items-center">
+          <div className="flex-1 h-px bg-gradient-to-r from-blue-600/30 via-slate-800/50 to-orange-600/30" />
+        </div>
+
         {/* Portfolio Section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
