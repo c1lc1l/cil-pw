@@ -113,7 +113,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="absolute z-50 left-1/2 -translate-x-1/2 top-full mt-4 w-72 pointer-events-none"
+          className="absolute z-50 left-1/2 -translate-x-1/2 top-full mt-4 w-80 pointer-events-none"
         >
           <div className="relative">
             {/* Arrow */}
@@ -135,7 +135,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
               }}
             >
               <div className="flex items-start gap-3 mb-3">
-                <div 
+                {/* <div 
                   className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ 
                     background: `radial-gradient(circle, ${cert.color}20, transparent)`
@@ -146,7 +146,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
                     alt={cert.name}
                     className="w-10 h-10 object-contain"
                   />
-                </div>
+                </div> */}
                 <div className="flex-1 min-w-0">
                   <h4 className="font-mono font-semibold text-white text-sm leading-tight mb-1">
                     {cert.name}
@@ -163,7 +163,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
                 {cert.description}
               </p>
               {cert.date && (
-                <p className="text-slate-500 text-xs font-mono">
+                <p className="text-blue-500/50 text-xs font-mono">
                   Issued: {cert.date}
                 </p>
               )}
@@ -394,7 +394,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
       name: "AWS Certified Cloud Practitioner",
       issuer: "Amazon Web Services",
       logo: "/logos/ccp.png",
-      color: "#9333ea",
+      color: "#999B9B",
       description: "Foundational understanding of AWS Cloud concepts, services, and terminology.",
       date: "Jan 2025"
     },
@@ -768,7 +768,7 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
           {/* Filter Buttons */}
           <div className="flex flex-wrap gap-3 justify-center mb-12">
             {[
-              { key: "all", label: "All Projects", color: "#64748B" },
+              { key: "all", label: "All Projects", color: "#FFFFFF" },
               { key: "tech", label: "Tech Projects", color: "#3B82F6" },
               { key: "article", label: "Articles", color: "#F97316" }
             ].map((filter) => (
