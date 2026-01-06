@@ -141,7 +141,7 @@ const FanImageCards = ({ images, role }: { images: string[]; role: RoleMode }) =
       transition: {
         duration: 0.5,
         delay: i * 0.06,
-        ease: [0.34, 1.56, 0.64, 1],
+        ease: [0.34, 1.56, 0.64, 1] as const,
       },
     }),
     exit: {
@@ -152,7 +152,7 @@ const FanImageCards = ({ images, role }: { images: string[]; role: RoleMode }) =
       rotate: 0,
       transition: {
         duration: 0.3,
-        ease: "easeIn",
+        ease: "easeIn" as const,
       },
     },
   };
