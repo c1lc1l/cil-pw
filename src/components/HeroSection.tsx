@@ -22,8 +22,8 @@ const roleConfig = {
     description: "Captain & Chief Executive Officer",
     images: [
       "/images/captain/photo1.jpg",
-      "/images/captain/photo2.jpg",
-      "/images/captain/photo3.jpg",
+      "/images/captain/photo2.JPG",
+      "/images/captain/photo3.JPG",
       "/images/captain/photo4.jpeg",
     ],
   },
