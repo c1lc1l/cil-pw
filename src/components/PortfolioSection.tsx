@@ -1,6 +1,6 @@
 // UPDATED MissionStatement.tsx
 
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { TrendingUp, Cloud, Pen, Rocket, Target, Users, Trophy, Award, ExternalLink, Filter } from "lucide-react";
 
@@ -106,71 +106,67 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
         </div>
       </motion.div>
 
-      {/* Hover Card */}
-      {isHovered && (
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-          className="absolute z-50 left-1/2 -translate-x-1/2 top-full mt-4 w-72 pointer-events-none"
-        >
-          <div className="relative">
-            {/* Arrow */}
-            <div 
-              className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 border-l-2 border-t-2"
-              style={{ 
-                borderColor: `${cert.color}60`,
-                backgroundColor: 'hsl(222 47% 11%)'
-              }}
-            />
-            
-            {/* Card */}
-            <div 
-              className="relative rounded-2xl border-2 p-4 shadow-2xl backdrop-blur-sm"
-              style={{ 
-                borderColor: `${cert.color}60`,
-                backgroundColor: 'hsl(222 47% 11% / 0.95)',
-                boxShadow: `0 20px 40px ${cert.color}20`
-              }}
-            >
-              <div className="flex items-start gap-3 mb-3">
+      {/* Hover Card - properly centered */}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute z-50 left-1/2 -translate-x-1/2 top-full mt-3 w-72 pointer-events-none"
+          >
+            <div className="relative">
+              {/* Arrow - centered */}
+              <div 
+                className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 border-l border-t"
+                style={{ 
+                  borderColor: `${cert.color}50`,
+                  backgroundColor: 'hsl(222 47% 11%)'
+                }}
+              />
+              
+              {/* Card with refined styling */}
+              <div 
+                className="relative rounded-xl border p-4 shadow-xl backdrop-blur-md overflow-hidden"
+                style={{ 
+                  borderColor: `${cert.color}40`,
+                  backgroundColor: 'hsl(222 47% 11% / 0.97)',
+                  boxShadow: `0 16px 48px ${cert.color}15, 0 4px 12px rgba(0,0,0,0.3)`
+                }}
+              >
+                {/* Subtle gradient overlay */}
                 <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ 
-                    background: `radial-gradient(circle, ${cert.color}20, transparent)`
+                  className="absolute inset-0 opacity-20 pointer-events-none"
+                  style={{
+                    background: `linear-gradient(135deg, ${cert.color}10, transparent 60%)`
                   }}
-                >
-                  <img 
-                    src={cert.logo} 
-                    alt={cert.name}
-                    className="w-10 h-10 object-contain"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
+                />
+                
+                <div className="relative">
                   <h4 className="font-mono font-semibold text-white text-sm leading-tight mb-1">
                     {cert.name}
                   </h4>
                   <p 
-                    className="text-xs font-mono"
+                    className="text-xs font-mono mb-3"
                     style={{ color: cert.color }}
                   >
                     {cert.issuer}
                   </p>
+                  <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                    {cert.description}
+                  </p>
+                  {cert.date && (
+                    <p className="text-slate-500 text-xs font-mono mt-2 pt-2 border-t border-slate-800">
+                      Issued: {cert.date}
+                    </p>
+                  )}
                 </div>
               </div>
-              <p className="text-slate-300 text-xs leading-relaxed mb-2">
-                {cert.description}
-              </p>
-              {cert.date && (
-                <p className="text-slate-500 text-xs font-mono">
-                  Issued: {cert.date}
-                </p>
-              )}
             </div>
-          </div>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -215,50 +211,83 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
               <path d={hexagonPath} />
             </clipPath>
             <linearGradient id={`hex-gradient-${project.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={project.color} stopOpacity="0.2" />
+              <stop offset="0%" stopColor={project.color} stopOpacity="0.25" />
+              <stop offset="50%" stopColor={project.color} stopOpacity="0.1" />
               <stop offset="100%" stopColor={project.color} stopOpacity="0.05" />
             </linearGradient>
+            {/* Inner glow gradient */}
+            <radialGradient id={`hex-inner-glow-${project.id}`} cx="50%" cy="30%" r="60%">
+              <stop offset="0%" stopColor={project.color} stopOpacity="0.15" />
+              <stop offset="100%" stopColor={project.color} stopOpacity="0" />
+            </radialGradient>
           </defs>
           
-          {/* Glow effect */}
+          {/* Outer glow on hover */}
           <motion.path
             d={hexagonPath}
             fill="none"
             stroke={project.color}
-            strokeWidth="0.5"
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            strokeWidth="0.8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
             style={{
-              filter: `drop-shadow(0 0 8px ${project.color})`
+              filter: `drop-shadow(0 0 12px ${project.color})`
             }}
           />
           
-          {/* Background */}
+          {/* Background fill */}
           <path
             d={hexagonPath}
             fill={`url(#hex-gradient-${project.id})`}
-            stroke={project.color}
-            strokeWidth="0.3"
-            opacity={isHovered ? "0.8" : "0.4"}
             className="transition-opacity duration-300"
+          />
+          
+          {/* Inner glow */}
+          <path
+            d={hexagonPath}
+            fill={`url(#hex-inner-glow-${project.id})`}
+            className="transition-opacity duration-300"
+            style={{ opacity: isHovered ? 1 : 0.5 }}
+          />
+          
+          {/* Border stroke */}
+          <path
+            d={hexagonPath}
+            fill="none"
+            stroke={project.color}
+            strokeWidth={isHovered ? "0.5" : "0.25"}
+            opacity={isHovered ? "0.9" : "0.5"}
+            className="transition-all duration-300"
           />
         </svg>
 
+        {/* Decorative corner accents */}
+        <div 
+          className="absolute top-[12%] left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+          style={{ backgroundColor: project.color }}
+        />
+        <div 
+          className="absolute bottom-[12%] left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+          style={{ backgroundColor: project.color }}
+        />
+
         {/* Content */}
         <div className="absolute inset-0 p-8 flex flex-col items-center justify-center text-center">
-          <h4 className="font-mono font-bold text-white text-base md:text-lg mb-3 line-clamp-2">
+          <h4 className="font-mono font-bold text-white text-base md:text-lg mb-3 line-clamp-2 drop-shadow-sm">
             {project.title}
           </h4>
           
-          {/* Tags */}
+          {/* Tags with refined styling */}
           <div className="flex flex-wrap gap-1.5 justify-center mb-3 max-w-[200px]">
             {project.tags.slice(0, 3).map((tag, i) => (
               <span
                 key={i}
-                className="px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-mono border"
+                className="px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-mono border backdrop-blur-sm transition-all duration-300"
                 style={{
-                  borderColor: `${project.color}40`,
-                  backgroundColor: `${project.color}15`,
-                  color: project.color
+                  borderColor: isHovered ? `${project.color}60` : `${project.color}30`,
+                  backgroundColor: isHovered ? `${project.color}20` : `${project.color}10`,
+                  color: project.color,
+                  boxShadow: isHovered ? `0 2px 8px ${project.color}15` : 'none'
                 }}
               >
                 {tag}
@@ -271,21 +300,22 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             {project.description}
           </p>
           
-          {/* Link Button */}
+          {/* Link Button with refined hover */}
           <motion.a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-xs border transition-all duration-300"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs border transition-all duration-300 backdrop-blur-sm"
             style={{
               borderColor: isHovered ? project.color : `${project.color}40`,
-              backgroundColor: isHovered ? `${project.color}20` : `${project.color}10`,
-              color: project.color
+              backgroundColor: isHovered ? `${project.color}25` : `${project.color}10`,
+              color: project.color,
+              boxShadow: isHovered ? `0 4px 16px ${project.color}25` : 'none'
             }}
-            whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
             whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
           >
-            View Project
+            View
             <ExternalLink className="w-3 h-3" />
           </motion.a>
         </div>

@@ -1,6 +1,6 @@
 // UPDATED MissionStatement.tsx
 
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { TrendingUp, Cloud, Pen, Rocket, Target, Users, Trophy, Award, ExternalLink, Filter } from "lucide-react";
 
