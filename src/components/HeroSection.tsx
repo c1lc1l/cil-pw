@@ -21,10 +21,10 @@ const roleConfig = {
     glowColor: "navy-glow",
     description: "Captain & Chief Executive Officer",
     images: [
-      "/public/images/captain/photo1.jpg",
-      "/public/images/captain/photo2.jpg",
-      "/public/images/captain/photo3.jpg",
-      "/public/images/captain/photo4.jpeg",
+      "/images/captain/photo1.jpg",
+      "/images/captain/photo2.jpg",
+      "/images/captain/photo3.jpg",
+      "/images/captain/photo4.jpeg",
     ],
   },
   editor: {
@@ -43,10 +43,10 @@ const roleConfig = {
     glowColor: "coffee-glow",
     description: "Associate Editor-in-Chief",
     images: [
-      "/public/images/aeic/photo1.jpg",
-      "/public/images/aeic/photo2.jpg",
-      "/public/images/aeic/photo3.jpg",
-      "/public/images/aeic/photo4.jpg",
+      "/images/aeic/photo1.jpg",
+      "/images/aeic/photo2.jpg",
+      "/images/aeic/photo3.jpg",
+      "/images/aeic/photo4.jpg",
     ],
   },
 };
