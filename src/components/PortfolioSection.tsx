@@ -65,9 +65,22 @@ interface Certification {
   date?: string;
 }
 
-const CertificationBadge = ({ cert }: { cert: Certification }) => {
+const CertificationBadge = ({ cert, position }: { cert: Certification; position?: 'left' | 'center' | 'right' }) => {
   const [isHovered, setIsHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+
+  // Determine tooltip alignment based on position
+  const getTooltipPosition = () => {
+    if (position === 'left') return 'left-0 translate-x-0';
+    if (position === 'right') return 'right-0 translate-x-0';
+    return 'left-1/2 -translate-x-1/2';
+  };
+
+  const getArrowPosition = () => {
+    if (position === 'left') return 'left-12';
+    if (position === 'right') return 'right-12';
+    return 'left-1/2 -translate-x-1/2';
+  };
 
   return (
     <div 
@@ -76,7 +89,7 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div
-        whileHover={prefersReducedMotion ? {} : { scale: 1.15, y: -4 }}
+        whileHover={prefersReducedMotion ? {} : { scale: 1.12, y: -6 }}
         className="relative w-24 h-24 md:w-28 md:h-28 cursor-pointer"
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
@@ -85,66 +98,72 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
           className="absolute inset-0 rounded-full blur-xl transition-opacity duration-300"
           style={{ 
             background: `radial-gradient(circle, ${cert.color}, transparent 70%)`,
-            opacity: isHovered ? 0.6 : 0.3
+            opacity: isHovered ? 0.6 : 0.25
           }}
           animate={{
-            scale: isHovered ? 1.2 : 1,
+            scale: isHovered ? 1.3 : 1,
           }}
           transition={{ duration: 0.3 }}
         />
         
-        {/* Logo - no border/box */}
+        {/* Logo */}
         <div className="relative w-full h-full flex items-center justify-center">
           <img 
             src={cert.logo} 
             alt={cert.name}
             className="w-full h-full object-contain drop-shadow-2xl"
             style={{
-              filter: isHovered ? `drop-shadow(0 0 20px ${cert.color}80)` : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))'
+              filter: isHovered ? `drop-shadow(0 0 24px ${cert.color}80)` : 'drop-shadow(0 4px 12px rgba(0,0,0,0.5))'
             }}
           />
         </div>
       </motion.div>
 
-      {/* Hover Card - properly centered */}
+      {/* Hover Card */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute z-50 left-1/2 -translate-x-1/2 top-full mt-3 w-72 pointer-events-none"
+            className={`absolute z-[100] top-full mt-4 w-72 pointer-events-none ${getTooltipPosition()}`}
           >
             <div className="relative">
-              {/* Arrow - centered */}
+              {/* Arrow */}
               <div 
-                className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 border-l border-t"
+                className={`absolute -top-[6px] ${getArrowPosition()} w-3 h-3 rotate-45 border-l border-t`}
                 style={{ 
                   borderColor: `${cert.color}50`,
-                  backgroundColor: 'hsl(222 47% 11%)'
+                  backgroundColor: 'hsl(222 47% 8%)'
                 }}
               />
               
-              {/* Card with refined styling */}
+              {/* Card */}
               <div 
-                className="relative rounded-xl border p-4 shadow-xl backdrop-blur-md overflow-hidden"
+                className="relative rounded-xl border p-4 shadow-2xl backdrop-blur-md overflow-hidden"
                 style={{ 
-                  borderColor: `${cert.color}40`,
-                  backgroundColor: 'hsl(222 47% 11% / 0.97)',
-                  boxShadow: `0 16px 48px ${cert.color}15, 0 4px 12px rgba(0,0,0,0.3)`
+                  borderColor: `${cert.color}35`,
+                  backgroundColor: 'hsl(222 47% 8% / 0.98)',
+                  boxShadow: `0 20px 50px ${cert.color}20, 0 8px 20px rgba(0,0,0,0.4)`
                 }}
               >
+                {/* Top accent line */}
+                <div 
+                  className="absolute top-0 left-4 right-4 h-[2px] rounded-full"
+                  style={{ backgroundColor: `${cert.color}40` }}
+                />
+                
                 {/* Subtle gradient overlay */}
                 <div 
-                  className="absolute inset-0 opacity-20 pointer-events-none"
+                  className="absolute inset-0 opacity-30 pointer-events-none"
                   style={{
-                    background: `linear-gradient(135deg, ${cert.color}10, transparent 60%)`
+                    background: `linear-gradient(135deg, ${cert.color}08, transparent 50%)`
                   }}
                 />
                 
-                <div className="relative">
-                  <h4 className="font-mono font-semibold text-white text-sm leading-tight mb-1">
+                <div className="relative pt-1">
+                  <h4 className="font-mono font-semibold text-white text-sm leading-tight mb-1.5">
                     {cert.name}
                   </h4>
                   <p 
@@ -153,11 +172,11 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
                   >
                     {cert.issuer}
                   </p>
-                  <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                  <p className="text-slate-300 text-xs leading-relaxed">
                     {cert.description}
                   </p>
                   {cert.date && (
-                    <p className="text-slate-500 text-xs font-mono mt-2 pt-2 border-t border-slate-800">
+                    <p className="text-slate-500 text-xs font-mono mt-3 pt-2 border-t border-slate-700/50">
                       Issued: {cert.date}
                     </p>
                   )}
@@ -195,7 +214,7 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
       viewport={{ once: true }}
       transition={{ 
         duration: 0.5, 
-        delay: index * 0.1,
+        delay: index * 0.08,
         type: "spring",
         stiffness: 200
       }}
@@ -203,6 +222,19 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Ambient glow behind card */}
+      <motion.div 
+        className="absolute inset-0 rounded-full blur-3xl pointer-events-none"
+        style={{ 
+          background: `radial-gradient(circle, ${project.color}25, transparent 60%)`,
+        }}
+        animate={{
+          opacity: isHovered ? 0.8 : 0.2,
+          scale: isHovered ? 1.1 : 1,
+        }}
+        transition={{ duration: 0.4 }}
+      />
+
       <div className="relative w-full aspect-[0.87] max-w-[280px] mx-auto">
         {/* Hexagon SVG Container */}
         <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
@@ -211,15 +243,21 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
               <path d={hexagonPath} />
             </clipPath>
             <linearGradient id={`hex-gradient-${project.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={project.color} stopOpacity="0.25" />
-              <stop offset="50%" stopColor={project.color} stopOpacity="0.1" />
-              <stop offset="100%" stopColor={project.color} stopOpacity="0.05" />
+              <stop offset="0%" stopColor={project.color} stopOpacity={isHovered ? "0.3" : "0.2"} />
+              <stop offset="50%" stopColor={project.color} stopOpacity={isHovered ? "0.15" : "0.08"} />
+              <stop offset="100%" stopColor="#0f172a" stopOpacity="0.9" />
             </linearGradient>
-            {/* Inner glow gradient */}
-            <radialGradient id={`hex-inner-glow-${project.id}`} cx="50%" cy="30%" r="60%">
-              <stop offset="0%" stopColor={project.color} stopOpacity="0.15" />
+            {/* Inner highlight gradient */}
+            <radialGradient id={`hex-inner-glow-${project.id}`} cx="50%" cy="20%" r="70%">
+              <stop offset="0%" stopColor={project.color} stopOpacity={isHovered ? "0.25" : "0.12"} />
               <stop offset="100%" stopColor={project.color} stopOpacity="0" />
             </radialGradient>
+            {/* Shimmer effect */}
+            <linearGradient id={`hex-shimmer-${project.id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor={project.color} stopOpacity="0" />
+              <stop offset="50%" stopColor={project.color} stopOpacity="0.3" />
+              <stop offset="100%" stopColor={project.color} stopOpacity="0" />
+            </linearGradient>
           </defs>
           
           {/* Outer glow on hover */}
@@ -227,11 +265,11 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             d={hexagonPath}
             fill="none"
             stroke={project.color}
-            strokeWidth="0.8"
+            strokeWidth="1"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             style={{
-              filter: `drop-shadow(0 0 12px ${project.color})`
+              filter: `drop-shadow(0 0 15px ${project.color}) drop-shadow(0 0 30px ${project.color}50)`
             }}
           />
           
@@ -239,7 +277,7 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           <path
             d={hexagonPath}
             fill={`url(#hex-gradient-${project.id})`}
-            className="transition-opacity duration-300"
+            className="transition-all duration-400"
           />
           
           {/* Inner glow */}
@@ -247,7 +285,6 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             d={hexagonPath}
             fill={`url(#hex-inner-glow-${project.id})`}
             className="transition-opacity duration-300"
-            style={{ opacity: isHovered ? 1 : 0.5 }}
           />
           
           {/* Border stroke */}
@@ -255,25 +292,58 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             d={hexagonPath}
             fill="none"
             stroke={project.color}
-            strokeWidth={isHovered ? "0.5" : "0.25"}
-            opacity={isHovered ? "0.9" : "0.5"}
+            strokeWidth={isHovered ? "0.6" : "0.3"}
+            opacity={isHovered ? "1" : "0.4"}
+            className="transition-all duration-300"
+          />
+          
+          {/* Inner border for depth */}
+          <path
+            d="M50 4 L90 27 L90 73 L50 96 L10 73 L10 27 Z"
+            fill="none"
+            stroke={project.color}
+            strokeWidth="0.15"
+            opacity={isHovered ? "0.3" : "0.1"}
             className="transition-all duration-300"
           />
         </svg>
 
         {/* Decorative corner accents */}
-        <div 
-          className="absolute top-[12%] left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+        <motion.div 
+          className="absolute top-[10%] left-1/2 -translate-x-1/2 h-[2px] rounded-full"
           style={{ backgroundColor: project.color }}
+          animate={{
+            width: isHovered ? 40 : 24,
+            opacity: isHovered ? 0.7 : 0.3,
+          }}
+          transition={{ duration: 0.3 }}
         />
-        <div 
-          className="absolute bottom-[12%] left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+        <motion.div 
+          className="absolute bottom-[10%] left-1/2 -translate-x-1/2 h-[2px] rounded-full"
           style={{ backgroundColor: project.color }}
+          animate={{
+            width: isHovered ? 40 : 24,
+            opacity: isHovered ? 0.7 : 0.3,
+          }}
+          transition={{ duration: 0.3 }}
+        />
+
+        {/* Category indicator dot */}
+        <div 
+          className="absolute top-[18%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full"
+          style={{ 
+            backgroundColor: project.color,
+            boxShadow: `0 0 8px ${project.color}`,
+            opacity: isHovered ? 1 : 0.6
+          }}
         />
 
         {/* Content */}
         <div className="absolute inset-0 p-8 flex flex-col items-center justify-center text-center">
-          <h4 className="font-mono font-bold text-white text-base md:text-lg mb-3 line-clamp-2 drop-shadow-sm">
+          <h4 className="font-mono font-bold text-white text-base md:text-lg mb-3 line-clamp-2" 
+            style={{ 
+              textShadow: isHovered ? `0 2px 10px ${project.color}40` : 'none'
+            }}>
             {project.title}
           </h4>
           
@@ -282,12 +352,12 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             {project.tags.slice(0, 3).map((tag, i) => (
               <span
                 key={i}
-                className="px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-mono border backdrop-blur-sm transition-all duration-300"
+                className="px-2.5 py-0.5 rounded-full text-[9px] md:text-[10px] font-mono border backdrop-blur-sm transition-all duration-300"
                 style={{
-                  borderColor: isHovered ? `${project.color}60` : `${project.color}30`,
-                  backgroundColor: isHovered ? `${project.color}20` : `${project.color}10`,
+                  borderColor: isHovered ? `${project.color}70` : `${project.color}35`,
+                  backgroundColor: isHovered ? `${project.color}25` : `${project.color}12`,
                   color: project.color,
-                  boxShadow: isHovered ? `0 2px 8px ${project.color}15` : 'none'
+                  boxShadow: isHovered ? `0 2px 12px ${project.color}20, inset 0 1px 0 ${project.color}15` : 'none'
                 }}
               >
                 {tag}
@@ -296,7 +366,8 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           </div>
           
           {/* Description */}
-          <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-4 line-clamp-3 max-w-[200px]">
+          <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-4 line-clamp-3 max-w-[200px] transition-colors duration-300"
+            style={{ color: isHovered ? '#cbd5e1' : '#94a3b8' }}>
             {project.description}
           </p>
           
@@ -307,10 +378,10 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs border transition-all duration-300 backdrop-blur-sm"
             style={{
-              borderColor: isHovered ? project.color : `${project.color}40`,
-              backgroundColor: isHovered ? `${project.color}25` : `${project.color}10`,
+              borderColor: isHovered ? project.color : `${project.color}45`,
+              backgroundColor: isHovered ? `${project.color}30` : `${project.color}12`,
               color: project.color,
-              boxShadow: isHovered ? `0 4px 16px ${project.color}25` : 'none'
+              boxShadow: isHovered ? `0 4px 20px ${project.color}30, inset 0 1px 0 ${project.color}20` : 'none'
             }}
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
             whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
@@ -750,22 +821,29 @@ const MissionStatement = ({ activeRole = "captain" }: { activeRole?: "captain" |
               
               {/* Certifications grid */}
               <div className="relative grid grid-cols-3 md:grid-cols-5 gap-8 md:gap-12 justify-items-center">
-                {certifications.map((cert, index) => (
-                  <motion.div
-                    key={cert.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 0.1 * index,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                  >
-                    <CertificationBadge cert={cert} />
-                  </motion.div>
-                ))}
+                {certifications.map((cert, index) => {
+                  // Determine position for tooltip alignment
+                  const colsOnDesktop = 5;
+                  const colOnDesktop = index % colsOnDesktop;
+                  const position = colOnDesktop === 0 ? 'left' : colOnDesktop === colsOnDesktop - 1 ? 'right' : 'center';
+                  
+                  return (
+                    <motion.div
+                      key={cert.id}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: 0.1 * index,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                    >
+                      <CertificationBadge cert={cert} position={position} />
+                    </motion.div>
+                  );
+                })}
               </div>
 
               {/* Decorative elements */}
