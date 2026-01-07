@@ -5,7 +5,6 @@ import { Coffee } from "lucide-react";
 const bootLines = [
   "$ brew coffee.tsx",
   "$ pip install caffeine",
-  "$ init captain-editor",
   "$ provisioning gen.exe",
 ];
 

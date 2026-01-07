@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
-import MissionStatement from "@/components/MissionStatement";
+import MainContent from "@/components/MainContent";
+import ProfessionalExperience from "@/components/ProfessionalExperience";
 import RightNav from "@/components/RightNav";
 import Footer, { HeroSocials } from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
@@ -24,8 +25,8 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSocials />
         <RightNav />
-        <HeroSection activeRole={activeRole} setActiveRole={setActiveRole} />
-        <MissionStatement activeRole={activeRole} />
+        <HeroSection />
+        <MainContent activeRole={activeRole} />
         <Footer />
       </main>
     </div>

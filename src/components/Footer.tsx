@@ -25,7 +25,7 @@ const socialLinks = [
   },
   { 
     icon: Facebook, 
-    href: "https://www.facebook.com/CilCil01c", 
+    href: "https://www.facebook.com/CilCil01", 
     label: "Facebook",
     color: "#1877F2",
     username: "@CilCil01com"
@@ -102,7 +102,7 @@ const Footer = () => {
               Built with <Coffee className="w-4 h-4 text-coffee-light" /> and <Sandwich className="w-4 h-4 text-coffee-light" />
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
-              © {new Date().getFullYear()} Gen "Cil" Benedict Casio. All rights reserved.
+              © {new Date().getFullYear()} Gen Benedict C. Casio. All rights reserved.
             </p>
           </motion.div>
         </div>
@@ -129,8 +129,6 @@ export const HeroSocials = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="group relative p-3 rounded-full bg-slate-900/80 border border-slate-700/50 backdrop-blur-sm hover:border-slate-500/50 transition-all"
-          whileHover={prefersReducedMotion ? {} : { scale: 1.1, x: 4 }}
-          whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1.5 + idx * 0.1 }}

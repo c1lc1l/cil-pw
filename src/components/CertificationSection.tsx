@@ -161,7 +161,8 @@ const CertificationBadge = ({ cert }: { cert: Certification }) => {
 
 const CertificationsSection = () => {
   return (
-    <section className="mt-24 max-w-6xl mx-auto px-4">
+    <section id="certifications" className="py-20 max-w-6xl mx-auto px-4">
+      
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

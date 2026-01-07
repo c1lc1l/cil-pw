@@ -293,11 +293,7 @@ const ProjectsSection = () => {
   ];
 
   return (
-    <motion.section className="mt-20 max-w-6xl mx-auto px-4">
-
-      <div className="my-24 flex items-center">
-        <div className="flex-1 h-px bg-gradient-to-r from-blue-600/30 via-slate-800/50 to-orange-600/30" />
-      </div>
+    <motion.section id="projects" className="mt-20 max-w-6xl mx-auto px-4">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
