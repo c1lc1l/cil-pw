@@ -1,9 +1,8 @@
 import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import MissionStatement from "@/components/MissionStatement";
-import PortfolioSection from "@/components/PortfolioSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
+import RightNav from "@/components/RightNav";
+import Footer, { HeroSocials } from "@/components/Footer";
 import AmbientBackground from "@/components/AmbientBackground";
 import CloudBootOverlay from "@/components/CloudBootOverlay";
 
@@ -18,12 +17,15 @@ const Index = () => {
       
       {/* Ambient background layer */}
       <AmbientBackground mode="focused" />
+
+      
       
       {/* Main content */}
       <main className="relative z-10">
+        <HeroSocials />
+        <RightNav />
         <HeroSection activeRole={activeRole} setActiveRole={setActiveRole} />
         <MissionStatement activeRole={activeRole} />
-        <ContactSection />
         <Footer />
       </main>
     </div>

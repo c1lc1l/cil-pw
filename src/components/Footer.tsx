@@ -1,11 +1,35 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, Facebook, Coffee, Heart, Cloud, Pen } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Github, Linkedin, Facebook, Coffee, Mail, Cloud, Pen, Sandwich } from "lucide-react";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/c1lc1l", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/benedict-casio", label: "LinkedIn" },
-  { icon: Instagram, href: "https://www.instagram.com/cil.une/", label: "Twitter" },
-  { icon: Facebook, href: "https://www.facebook.com/CilCil01com", label: "Email" },
+  { 
+    icon: Github, 
+    href: "https://github.com/c1lc1l", 
+    label: "GitHub",
+    color: "#ffffff",
+    username: "@c1lc1l"
+  },
+  { 
+    icon: Linkedin, 
+    href: "https://linkedin.com/in/benedict-casio", 
+    label: "LinkedIn",
+    color: "#0A66C2",
+    username: "Benedict Casio"
+  },
+  { 
+    icon: Mail, 
+    href: "mailto:benedictcasio010@gmail.com", 
+    label: "Email",
+    color: "#EA4335",
+    username: "benedictcasio010@gmail.com"
+  },
+  { 
+    icon: Facebook, 
+    href: "https://www.facebook.com/CilCil01c", 
+    label: "Facebook",
+    color: "#1877F2",
+    username: "@CilCil01com"
+  },
 ];
 
 const Footer = () => {
@@ -75,7 +99,7 @@ const Footer = () => {
             className="text-center"
           >
             <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-              Built with <Coffee className="w-4 h-4 text-coffee-light" /> and moreeeee <Coffee className="w-4 h-4 text-coffee-light" />
+              Built with <Coffee className="w-4 h-4 text-coffee-light" /> and <Sandwich className="w-4 h-4 text-coffee-light" />
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
               © {new Date().getFullYear()} Gen "Cil" Benedict Casio. All rights reserved.
@@ -84,6 +108,50 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+  );
+};
+
+export const HeroSocials = () => {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 1.5 }}
+      className="fixed top-1/2 left-8 -translate-y-1/2 flex flex-col gap-4 z-50"
+      style={{ translateY: '-50%' }}
+    >
+      {socialLinks.map(({ icon: Icon, href, label, color }, idx) => (
+        <motion.a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative p-3 rounded-full bg-slate-900/80 border border-slate-700/50 backdrop-blur-sm hover:border-slate-500/50 transition-all"
+          whileHover={prefersReducedMotion ? {} : { scale: 1.1, x: 4 }}
+          whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.5 + idx * 0.1 }}
+          aria-label={label}
+        >
+          <Icon 
+            className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" 
+            style={{ color: `${color}80` }}
+          />
+
+          {/* Glow effect */}
+          <div 
+            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 blur-lg transition-opacity"
+            style={{ backgroundColor: `${color}80` }}
+          />
+        </motion.a>
+      ))}
+    
+      {/* Connecting line */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent -z-10" />
+    </motion.div>
   );
 };
 

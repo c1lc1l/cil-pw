@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Cloud, Pen, Server, FileText } from "lucide-react";
+import TechBackdrop from "./TechBackdrop";
+import HeroSocials from "./Footer";
 
 type RoleMode = "captain" | "editor";
 
@@ -239,10 +241,10 @@ const CoffeeWave = ({ activeRole }: { activeRole: RoleMode }) => {
   return (
     <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
       <motion.svg
-        className="w-full h-32"
+        className="w-full h-32 md:h-40"
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
@@ -298,6 +300,8 @@ const HeroSection = ({
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4">
+      <TechBackdrop activeRole={activeRole} />
+      
       {/* Dynamic ambient glows based on role - positioned HIGHER */}
       <motion.div 
         className="absolute -top-40 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none"
@@ -478,6 +482,7 @@ const HeroSection = ({
 
       {/* Coffee wave transition */}
       <CoffeeWave activeRole={activeRole} />
+      
     </section>
   );
 };
