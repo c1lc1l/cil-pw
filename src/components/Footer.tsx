@@ -51,14 +51,7 @@ const Footer = () => {
               Gen Benedict C. Casio
             </h3>
             <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <span>Architecting organized chaos through</span>
-                <Brain className="w-4 h-4 text-green-400" />
-                <span>,</span>
-                <Cloud className="w-4 h-4 text-blue-400" />
-                <span>and</span>
-                <Pen className="w-4 h-4 text-purple-400" />
-              </span>
+                <span>Architecting organized chaos through AI, Cloud and Journalism</span>
             </div>
           </motion.div>
 
