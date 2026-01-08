@@ -21,7 +21,7 @@ const projects: Project[] = [
     category: "tech",
     tags: ["Rekognition", "CV", "S3"],
     description:
-      "Computer Vision app using Rekognition Custom Labels, S3 and Lambda event triggers served via a flask frontend.",
+      "Computer Vision app using Rekognition Custom Labels, S3 and Lambda event triggers served via a React frontend.",
     link: "https://github.com/your-handle/leaf-disease",
     color: "#22C55E",
   },
