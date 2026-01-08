@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Coffee, Pen, Rocket, Target, Users } from "lucide-react";
 
-type SectionId = "hero" | "professional-experience" | "certifications" | "projects" | "contact";
+type SectionId = "hero" | "professional-experience" | "certifications" | "projects" ;
 
 const sections: {
   id: SectionId;
@@ -19,7 +19,6 @@ const sections: {
   { id: "professional-experience", label: "My Experiences", icon: <Pen className="w-4 h-4" /> },
   { id: "certifications", label: "Certifications", icon: <Target className="w-4 h-4" /> },
   { id: "projects", label: "Projects", icon: <Rocket className="w-4 h-4" /> },
-  { id: "contact", label: "Contact", icon: <Users className="w-4 h-4" /> },
 ];
 
 export default function RightNav() {
