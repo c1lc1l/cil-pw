@@ -10,7 +10,6 @@ interface Skill {
 interface RoleCardProps {
   role: string;
   title: string;
-  badge: string;
   organization: string;
   dateRange: string;
   description: string;

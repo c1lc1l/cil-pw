@@ -1,5 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion";
-import { Github, Linkedin, Facebook, Coffee, Mail, Cloud, Pen, Sandwich } from "lucide-react";
+import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { Github, Linkedin, Facebook, Coffee, Mail, Brain, Cloud, Pen, Sandwich } from "lucide-react";
 
 const socialLinks = [
   { 
@@ -40,7 +41,6 @@ const Footer = () => {
       
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center gap-8">
-          {/* Logo/Brand with dual identity */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,17 +48,16 @@ const Footer = () => {
             className="text-center"
           >
             <h3 className="text-2xl font-mono font-bold text-foreground mb-2">
-              Gen "Cil" Benedict Casio
+              Gen Benedict C. Casio
             </h3>
             <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <Cloud className="w-4 h-4 text-navy-glow" />
-                <span>AWS Cloud Club Captain "Ben"</span>
-              </span>
-              <span className="text-border">|</span>
-              <span className="flex items-center gap-1.5">
-                <Pen className="w-4 h-4 text-coffee-light" />
-                <span>Associate Editor-in-Chief "Cil"</span>
+                <span>Architecting organized chaos through</span>
+                <Brain className="w-4 h-4 text-green-400" />
+                <span>,</span>
+                <Cloud className="w-4 h-4 text-blue-400" />
+                <span>and</span>
+                <Pen className="w-4 h-4 text-purple-400" />
               </span>
             </div>
           </motion.div>
@@ -87,9 +86,6 @@ const Footer = () => {
             ))}
           </motion.div>
 
-          {/* Divider */}
-          <div className="w-24 h-px bg-gradient-to-r from-navy-glow/30 via-coffee-light/30 to-navy-glow/30" />
-
           {/* Copyright */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -99,7 +95,7 @@ const Footer = () => {
             className="text-center"
           >
             <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-              Built with <Coffee className="w-4 h-4 text-coffee-light" /> and <Sandwich className="w-4 h-4 text-coffee-light" />
+              Built with <Coffee className="w-4 h-4 text-coffee-light" /> @ 3 AM
             </p>
             <p className="text-xs text-muted-foreground/60 mt-2 font-mono">
               © {new Date().getFullYear()} Gen Benedict C. Casio. All rights reserved.
@@ -112,14 +108,35 @@ const Footer = () => {
 };
 
 export const HeroSocials = () => {
-  const prefersReducedMotion = useReducedMotion();
+  const [hideSocials, setHideSocials] = useState(false);
+  const footerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    footerRef.current = document.querySelector("footer");
+    if (!footerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setHideSocials(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 1.5 }}
-      className="fixed top-1/2 left-8 -translate-y-1/2 flex flex-col gap-4 z-50"
+      animate={
+        hideSocials
+          ? { opacity: 0, x: -20 }
+          : { opacity: 1, x: 0 }
+      }
+      transition={{ duration: 0.4 }}
+      className="fixed top-1/2 left-8 -translate-y-1/2 flex-col gap-4 z-50 hidden sm:flex"
       style={{ translateY: '-50%' }}
     >
       {socialLinks.map(({ icon: Icon, href, label, color }, idx) => (

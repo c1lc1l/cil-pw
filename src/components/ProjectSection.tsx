@@ -10,87 +10,146 @@ interface Project {
   description: string;
   link: string;
   color: string;
+  isPrivate?: boolean;          // NEW
+  linkLabel?: string; 
 }
 
 const projects: Project[] = [
-    {
-      id: "proj-1",
-      title: "AWS Cloud Infrastructure",
-      category: "tech",
-      tags: ["AWS", "Cloud", "Infrastructure"],
-      description: "Scalable cloud architecture using AWS services for enterprise applications.",
-      link: "https://example.com/aws-project",
-      color: "#FF9900"
-    },
-    {
-      id: "proj-2",
-      title: "AI-Powered Chatbot",
-      category: "tech",
-      tags: ["Python", "AI", "NLP"],
-      description: "Natural language processing chatbot using machine learning algorithms.",
-      link: "https://example.com/chatbot",
-      color: "#4285F4"
-    },
-    {
-      id: "proj-3",
-      title: "Political Analysis Column",
-      category: "article",
-      tags: ["Politics", "Editorial", "Opinion"],
-      description: "In-depth analysis of contemporary political issues and governance.",
-      link: "https://example.com/politics-column",
-      color: "#F97316"
-    },
-    {
-      id: "proj-4",
-      title: "DevOps Pipeline",
-      category: "tech",
-      tags: ["Docker", "CI/CD", "Cloud"],
-      description: "Automated deployment pipeline with containerization and orchestration.",
-      link: "https://example.com/devops",
-      color: "#10B981"
-    },
-    {
-      id: "proj-5",
-      title: "Social Justice Feature",
-      category: "article",
-      tags: ["Society", "Investigation", "Feature"],
-      description: "Investigative feature on social justice movements and community impact.",
-      link: "https://example.com/social-justice",
-      color: "#EC4899"
-    },
-    {
-      id: "proj-6",
-      title: "Data Analytics Dashboard",
-      category: "tech",
-      tags: ["JavaScript", "Data Viz", "Analytics"],
-      description: "Interactive data visualization dashboard for business intelligence.",
-      link: "https://example.com/dashboard",
-      color: "#8B5CF6"
-    },
-    {
-      id: "proj-7",
-      title: "Education Reform Essay",
-      category: "article",
-      tags: ["Education", "Column", "Policy"],
-      description: "Critical examination of education policies and reform initiatives.",
-      link: "https://example.com/education",
-      color: "#F59E0B"
-    },
-    {
-      id: "proj-8",
-      title: "Machine Learning Model",
-      category: "tech",
-      tags: ["Python", "ML", "TensorFlow"],
-      description: "Predictive machine learning model for data-driven decision making.",
-      link: "https://example.com/ml-model",
-      color: "#06B6D4"
-    }
-  ];
+  {
+    id: "proj-leaf-disease",
+    title: "Leaf Disease Detection",
+    category: "tech",
+    tags: ["Rekognition", "CV", "S3"],
+    description:
+      "Computer Vision app using Rekognition Custom Labels, S3 and Lambda event triggers served via a flask frontend.",
+    link: "https://github.com/your-handle/leaf-disease",
+    color: "#22C55E",
+  },
+  {
+    id: "proj-ml-demo",
+    title: "Shopee Delivery ML",
+    category: "tech",
+    tags: ["Regression", "Random Forest"],
+    description:
+      "Intro ML demo in Google Colab using logistic regression and random forest to predict on-time Shopee deliveries.",
+    link: "https://github.com/your-handle/shopee-ml-demo",
+    color: "#22C55E",
+  },
+  {
+    id: "proj-reika",
+    title: "Reika the Orca",
+    category: "tech",
+    tags: ["React", "Serverless", "Bedrock"],
+    description:
+      "Full-stack chatbot app using Lambda, Bedrock with Guardrails, API Gateway, and a React frontend on CloudFront.",
+    link: "https://github.com/c1lc1l/reika-ask-cloud",
+    color: "#38BDF8",
+  },
+  {
+    id: "art-codex-cli",
+    title: "Exploring the OpenAI Codex CLI",
+    category: "article",
+    tags: ["AI tools", "Dev Productivity", "OpenAI"],
+    description:
+      "Hands-on guide to using the OpenAI Codex CLI from the terminal for prototyping, model switching, and code generation.",
+    link: "https://tutorialsdojo.com/exploring-the-openai-codex-cli-a-hands-on-guide/",
+    color: "#F97316",
+    linkLabel: "Read Article",
+  },
+  {
+    id: "proj-wordie",
+    title: "-Wordie- #2039",
+    category: "tech",
+    tags: ["EC2", "Python", "Discord"],
+    description:
+      "Discord bot hosted on EC2, with startup scripts, uptime monitoring and secure SSH via Instance Connect.",
+    link: "https://github.com/your-handle/wordie-bot",
+    color: "#38BDF8",
+  },
+  {
+    id: "art-ec2-discord-bot",
+    title: "Deploy Your Discord Bot Using Amazon EC2",
+    category: "article",
+    tags: ["EC2", "Python", "Discord Bot"],
+    description:
+      "Step-by-step walkthrough for hosting a Discord bot on EC2, from instance setup to keeping the bot running 24/7.",
+    link: "https://dev.to/c1lc1l/deploy-your-discord-bot-using-amazon-ec2-2mdm",
+    color: "#F97316",
+    linkLabel: "Read Article"
+  },
+  {
+    id: "proj-reika-ci",
+    title: "Game App CI/CD Pipeline",
+    category: "tech",
+    tags: ["DevOps", "Vercel", "Vite"],
+    description:
+      "Provisioned GitHub Actions pipelines and secrets to automate builds and deploys for a Vite + React app on Vercel.",
+    link: "https://github.com/gmdb22/AWSCCPCUFoundationDay",
+    color: "#38BDF8",
+  },
+  {
+    id: "proj-creds-rss",
+    title: "Creds RSS Aggregation",
+    category: "tech",
+    tags: ["Apps Script", "RSS", "Data Ops"],
+    description:
+      "Google Apps Script pipeline aggregating RSS feeds from 20+ external newsletters to curate daily content.",
+    link: "https://example.com/creds-rss",
+    color: "#38BDF8",
+    isPrivate: true,
+    linkLabel: "Summary",
+  },
+  {
+    id: "art-jpas-diokno-salazar",
+    title: "Youth, Governance, and Good Leadership",
+    category: "article",
+    tags: ["News Feature", "Youth", "Governance"],
+    description:
+      "Feature on ‘Basta PolSci, Mahusay,’ where Chel Diokno and Kerby Salazar urge students to lead with voter literacy.",
+    link: "https://www.facebook.com/share/p/17nDfUtBFm/",
+    color: "#F97316",
+    linkLabel: "Read Article"
+  },
+  {
+    id: "art-carpio-sovereignty",
+    title: "Defending Philippine Sovereignty",
+    category: "article",
+    tags: ["Feature", "West Philippine Sea", "Sovereignty"],
+    description:
+      "Feature on Justice Carpio’s lecture explaining why Philippine sovereignty extends beyond the Treaty of Paris, including Scarborough Shoal.",
+    link: "https://www.facebook.com/share/p/18i6Hxtcqp/",
+    color: "#F97316",
+    linkLabel: "Read Article"
+  },
+  {
+    id: "art-justitias-demise",
+    title: "Justitia’s Demise",
+    category: "article",
+    tags: ["Editorial", "Martial Law", "Historical memory"],
+    description:
+      "The scars of the past still echo, but what happens when history is quietly twisted, and the voices of justice fade into silence? ",
+    link: "https://www.facebook.com/share/p/17iVc6aZC1/",
+    color: "#F97316",
+    linkLabel: "Read Article"
+  },
+  {
+    id: "art-checkmate-or-check",
+    title: "Checkmate or Check?",
+    category: "article",
+    tags: ["Editorial", "Corruption", "Accountability"],
+    description:
+      "Short editorial using chess metaphors to question Senate investigations where investigators share ties with the very contractors they probe.",
+    link: "https://www.facebook.com/share/p/1KSPQ3WmTR/",
+    color: "#F97316",
+    linkLabel: "Read Article"
+  },
+];
+
 
 const HexagonCard = ({ project, index }: { project: Project; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
-
+  const label = project.linkLabel ?? (project.isPrivate ? "Summary" : "View Project");
   const hexagonPath = "M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z";
 
   return (
@@ -121,7 +180,7 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
         transition={{ duration: 0.4 }}
       />
 
-      <div className="relative w-full aspect-[0.87] max-w-[280px] mx-auto">
+      <div className="relative w-full aspect-[0.87] max-w-[300px] md:max-w-[320px] mx-auto">
         {/* Hexagon SVG Container */}
         <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full">
           <defs>
@@ -169,13 +228,13 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           
           {/* Border stroke */}
           <path
-            d={hexagonPath}
             fill="none"
             stroke={project.color}
             strokeWidth={isHovered ? "0.6" : "0.3"}
             opacity={isHovered ? "1" : "0.4"}
             className="transition-all duration-300"
-          />
+          /> d={hexagonPath}
+           
           
           {/* Inner border for depth */}
           <path
@@ -208,19 +267,9 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           transition={{ duration: 0.3 }}
         />
 
-        {/* Category indicator dot */}
-        <div 
-          className="absolute top-[18%] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full"
-          style={{ 
-            backgroundColor: project.color,
-            boxShadow: `0 0 8px ${project.color}`,
-            opacity: isHovered ? 1 : 0.6
-          }}
-        />
-
         {/* Content */}
-        <div className="absolute inset-0 p-8 flex flex-col items-center justify-center text-center">
-          <h4 className="font-mono font-bold text-white text-base md:text-lg mb-3 line-clamp-2" 
+        <div className="absolute inset-0 px-7 py-8 flex flex-col items-center justify-center text-center">
+          <h4 className="font-mono font-semibold text-sm md:text-base mb-2 line-clamp-2" 
             style={{ 
               textShadow: isHovered ? `0 2px 10px ${project.color}40` : 'none'
             }}>
@@ -228,7 +277,7 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           </h4>
           
           {/* Tags with refined styling */}
-          <div className="flex flex-wrap gap-1.5 justify-center mb-3 max-w-[200px]">
+          <div className="flex flex-wrap gap-1.5 justify-center mb-3">
             {project.tags.slice(0, 3).map((tag, i) => (
               <span
                 key={i}
@@ -246,7 +295,7 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           </div>
           
           {/* Description */}
-          <p className="text-slate-400 text-xs md:text-sm leading-relaxed mb-4 line-clamp-3 max-w-[200px] transition-colors duration-300"
+          <p className="text-slate-400 text-xs md:text-sm leading-snug mb-4 line-clamp-5 max-w-[220px] transition-colors duration-300"
             style={{ color: isHovered ? '#cbd5e1' : '#94a3b8' }}>
             {project.description}
           </p>
@@ -254,19 +303,19 @@ const HexagonCard = ({ project, index }: { project: Project; index: number }) =>
           {/* Link Button with refined hover */}
           <motion.a
             href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={project.isPrivate ? "_self" : "_blank"}
+            rel={project.isPrivate ? undefined : "noopener noreferrer"}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-mono text-xs border transition-all duration-300 backdrop-blur-sm"
             style={{
               borderColor: isHovered ? project.color : `${project.color}45`,
               backgroundColor: isHovered ? `${project.color}30` : `${project.color}12`,
               color: project.color,
-              boxShadow: isHovered ? `0 4px 20px ${project.color}30, inset 0 1px 0 ${project.color}20` : 'none'
+              boxShadow: isHovered ? `0 4px 20px ${project.color}30, inset 0 1px 0 ${project.color}20` : "none",
             }}
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
             whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
           >
-            View
+            {label}
             <ExternalLink className="w-3 h-3" />
           </motion.a>
         </div>
@@ -352,7 +401,7 @@ const ProjectsSection = () => {
         />
         <motion.div
           layout
-          className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
+          className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {filteredProjects.map((project, index) => (
             <motion.div

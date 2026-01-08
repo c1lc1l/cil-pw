@@ -10,9 +10,9 @@ const heroConfig = {
   name: "Gen",
   handle: "serverless.coffee: Brewing",
   status: "active.status: Python-ing",
-  subtitle: "Architecting Organized Chaos Through AWS",
+  subtitle: "Architecting Organized Chaos Through AI, Cloud, and Journalism",
   about:
-    "I'm Gen Benedict Casio, a technology consultant and student developer working with cloud‑native systems, serverless workloads, and applied AI/ML on AWS. I enjoy turning ideas into practical tools and helping communities grow, one sip of coffee at a time.",  
+    "I'm Gen Benedict C. Casio—technology consultant, student developer, and coffee enthusiast. I specialize in cloud-native systems, serverless architectures, and applied AI/ML on AWS, turning concepts into working solutions. As associate editor-in-chief, I explore the intersection of technology, AI, and social issues through writing.",  
   photo: "/images/captain/photo.JPG",
   typewriterTexts: [
     "BREWING SPANISH LATTE...",
@@ -84,21 +84,10 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4"
     >
+      {/* relative py-24 md:py-32 px-4 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-hiddena */}
       <TechBackdrop activeRole="captain" />
-
-      {/* Ambient blue glows */}
-      <motion.div
-        className="absolute -top-40 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none"
-        animate={{ backgroundColor: "hsl(210 80% 45% / 0.15)" }}
-        transition={{ duration: 0.8 }}
-      />
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl pointer-events-none"
-        animate={{ backgroundColor: "hsl(210 90% 50% / 0.1)" }}
-        transition={{ duration: 0.8 }}
-      />
 
       <div className="relative z-10 max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-center">
         {/* LEFT: CLI terminal card */}
